@@ -61,6 +61,10 @@ def force_type(data_type, value):
         elif data_type == "age":
             if value[-1] == 'M':
                 retval = float(value.replace('M', '')) / 12.0
+            elif value[-1] == 'W':
+                retval = float(value.replace('W', '')) / 52.0
+            elif value[-1] == 'D':
+                retval = float(value.replace('D', '')) / 365.0
             else:
                 retval = float(value.replace('Y', ''))
     return retval
