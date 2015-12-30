@@ -14,7 +14,7 @@ def getDataTypeClass(data_type):
     elif data_type == "str":
         dtc = String(100)
     elif data_type == "age":
-        dtc = Integer
+        dtc = Float
     elif data_type == "bool":
         dtc = Boolean
     return dtc
