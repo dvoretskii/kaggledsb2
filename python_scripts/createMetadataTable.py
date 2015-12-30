@@ -44,6 +44,8 @@ def processCsvFile(csv_file_name):
                         if seq_length == 1:
                             columns.append(Column(base_name, dtc))
                         else:
+                            full_name = base_name + "Length"
+                            columns.append(Column(full_name, Integer))
                             for i in xrange(seq_length):
                                 full_name = base_name + str(i)
                                 columns.append(Column(full_name, dtc))
