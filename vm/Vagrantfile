@@ -2,9 +2,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.network :forwarded_port, guest: 80, host: 802
-  config.vm.network :forwarded_port, guest: 3306, host: 33062
-  config.vm.network :forwarded_port, guest: 5432, host: 54322
+  config.vm.network :forwarded_port, guest: 80, host: 803
+  config.vm.network :forwarded_port, guest: 3306, host: 33063
+  config.vm.network :forwarded_port, guest: 5432, host: 54333
 
   # define an ip
   config.vm.network :private_network, ip: "192.168.56.103"
