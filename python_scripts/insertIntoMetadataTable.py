@@ -10,21 +10,22 @@ MD_TABLE_NAME = 'md'
 
 AN_PATTERN = re.compile('[\W_]+')
 
+
 def get_frames(root_path):
-   """Get path to all the frame in view SAX and contain complete frames"""
-   print("Getting frames for: " + root_path)
-   ret = []
-   for root, _, files in os.walk(root_path):
-       if len(files) == 0 or not files[0].endswith(".dcm") or root.find("sax") == -1:
-           continue
-       prefix = files[0].rsplit('-', 1)[0]
-       fileset = set(files)
-       expected = ["%s-%04d.dcm" % (prefix, i + 1) for i in range(30)]
-       if all(x in fileset for x in expected):
-           ret.append([root + "/" + x for x in expected])
-   # sort for reproducibility
-   print("Finished getting frames")
-   return sorted(ret, key = lambda x: x[0])
+    """Get path to all the frame in view SAX and contain complete frames"""
+    print("Getting frames for: " + root_path)
+    ret = []
+    for root, _, files in os.walk(root_path):
+        if len(files) == 0 or not files[0].endswith(".dcm") or root.find("sax") == -1:
+            continue
+        prefix = files[0].rsplit('-', 1)[0]
+        fileset = set(files)
+        expected = ["%s-%04d.dcm" % (prefix, i + 1) for i in range(30)]
+        if all(x in fileset for x in expected):
+            ret.append([root + "/" + x for x in expected])
+    # sort for reproducibility
+    print("Finished getting frames")
+    return sorted(ret, key = lambda x: x[0])
 
 
 def process_file(cur_file, process):
@@ -107,6 +108,7 @@ def extract_metadata_to_db(f_name, conn, md_table, train_flag, len_dict, type_di
                             val = force_type(data_type, vals[i])
                             db_dict[tmp_name] = val
             conn.execute(ins, **db_dict)
+
 
 def create_process_function(conn, md_table, train_flag, len_dict, type_dict):
     return lambda f_name: extract_metadata_to_db(f_name, conn, md_table, train_flag, len_dict, type_dict)

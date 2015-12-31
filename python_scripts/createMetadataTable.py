@@ -5,6 +5,7 @@ from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, 
 DB_CONNECTION_STRING = 'postgresql+psycopg2://vagrant:vagrant@127.0.0.1:54333/kaggle'
 MD_TABLE_NAME = 'md'
 
+
 def getDataTypeClass(data_type):
     dtc = None
     if data_type == "int":
@@ -49,16 +50,16 @@ def processCsvFile(csv_file_name):
                             for i in xrange(seq_length):
                                 full_name = base_name + str(i)
                                 columns.append(Column(full_name, dtc))
-
-
     columns.append(Column('vol_d', Float))
     columns.append(Column('vol_s', Float))
     return columns
+
 
 def createMDTable(columns, engine):
     metadata = MetaData()
     md_table = Table(MD_TABLE_NAME, metadata, *columns)
     metadata.create_all(engine)
+
 
 def main(csv_file_name):
     engine = create_engine(DB_CONNECTION_STRING)
